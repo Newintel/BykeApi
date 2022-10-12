@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="default">
+
+      <class>com.webservices.bykeapi.domain.APourDistanceEntity</class>
+      <class>com.webservices.bykeapi.domain.AcheteEntity</class>
+      <class>com.webservices.bykeapi.domain.CalendrierEntity</class>
+      <class>com.webservices.bykeapi.domain.EtapeEntity</class>
+      <class>com.webservices.bykeapi.domain.RouteEntity</class>
+      <class>com.webservices.bykeapi.domain.SortieEntity</class>
+      <class>com.webservices.bykeapi.domain.UtilisateurEntity</class>
+      <class>com.webservices.bykeapi.domain.VaeEntity</class>
+      <class>com.webservices.bykeapi.domain.VeloEntity</class>
+      <class>com.webservices.bykeapi.domain.VttEntity</class>
+      <properties>
+          <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/byke"/>
+          <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
+          <property name="hibernate.connection.username" value="userepul"/>
+          <property name="hibernate.connection.password" value="epul"/>
+      </properties>
+  </persistence-unit>
+</persistence>
