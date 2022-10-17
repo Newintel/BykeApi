@@ -10,12 +10,15 @@ import java.util.Objects;
 
 public class EntityAchetePK implements Serializable {
     @Column(name = "id_velo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int idVelo;
     @Column(name = "num_util")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int numUtil;
     @Column(name = "date_jour")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Date dateJour;
 

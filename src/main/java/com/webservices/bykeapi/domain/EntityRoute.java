@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "route", schema = "byke", catalog = "")
 public class EntityRoute {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_velo")
     private int idVelo;

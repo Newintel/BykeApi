@@ -9,9 +9,11 @@ import java.util.Objects;
 
 public class EntityAPourDistancePK implements Serializable {
     @Column(name = "id_etape_dep")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int idEtapeDep;
     @Column(name = "id_etape_arr")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int idEtapeArr;
 

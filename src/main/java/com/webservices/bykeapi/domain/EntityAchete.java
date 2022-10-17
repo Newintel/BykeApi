@@ -8,12 +8,15 @@ import java.util.Objects;
 @Table(name = "achete", schema = "byke", catalog = "")
 @IdClass(EntityAchetePK.class)
 public class EntityAchete {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_velo")
     private int idVelo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "num_util")
     private int numUtil;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "date_jour")
     private Date dateJour;

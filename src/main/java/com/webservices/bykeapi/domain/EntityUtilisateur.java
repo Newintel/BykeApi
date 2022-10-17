@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "utilisateur", schema = "byke", catalog = "")
 public class EntityUtilisateur {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "num_util")
     private int numUtil;

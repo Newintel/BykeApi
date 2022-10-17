@@ -2,9 +2,11 @@ package com.webservices.bykeapi.controller;
 
 import com.webservices.bykeapi.service.SortieService;
 import com.webservices.bykeapi.domain.EntitySortie;
+import com.webservices.bykeapi.utils.PostRequestReturn;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
 import java.util.List;
 
 @RestController
@@ -29,8 +31,9 @@ public class SortieController {
 
     @PostMapping("")
     public ResponseEntity addSortie(@RequestBody EntitySortie sortie) {
-        sortieService.addSortie(sortie);
-        return ResponseEntity.ok().build();
+        PostRequestReturn<EntitySortie> obj = sortieService.addSortie(sortie);
+
+        return ResponseEntity.ok().body(obj.getJson());
     }
 
     @PutMapping("/{id}")

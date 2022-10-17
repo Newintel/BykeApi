@@ -2,6 +2,7 @@ package com.webservices.bykeapi.service;
 
 import com.webservices.bykeapi.repository.SortieEntityRepository;
 import com.webservices.bykeapi.domain.EntitySortie;
+import com.webservices.bykeapi.utils.PostRequestReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,9 @@ public class SortieService {
         );
     }
 
-    public void addSortie(EntitySortie sortie) {
-        sortieRepository.save(sortie);
+    public PostRequestReturn<EntitySortie> addSortie(EntitySortie sortie) {
+        EntitySortie s = sortieRepository.save(sortie);
+        return new PostRequestReturn<>(s, new String[]{"numSortie"});
     }
 
     public void deleteSortie(int id) {

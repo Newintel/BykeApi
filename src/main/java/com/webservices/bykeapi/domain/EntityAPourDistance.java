@@ -8,9 +8,11 @@ import java.util.Objects;
 @Table(name = "a_pour_distance", schema = "byke", catalog = "")
 @IdClass(EntityAPourDistancePK.class)
 public class EntityAPourDistance {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_etape_dep")
     private int idEtapeDep;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_etape_arr")
     private int idEtapeArr;
