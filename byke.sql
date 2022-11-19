@@ -27,6 +27,7 @@ CREATE TABLE utilisateur
     num_util       int(11) NOT NULL AUTO_INCREMENT,
     nom_util       char(20)      DEFAULT NULL,
     prenom_util    char(20)      DEFAULT NULL,
+    mdp_util       char(100)      DEFAULT NULL,
     date_naissance date          DEFAULT NULL,
     taille         decimal(6, 2) DEFAULT NULL,
     poids          decimal(6, 2) DEFAULT NULL,

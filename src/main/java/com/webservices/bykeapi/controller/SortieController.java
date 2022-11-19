@@ -1,12 +1,12 @@
 package com.webservices.bykeapi.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.webservices.bykeapi.service.SortieService;
-import com.webservices.bykeapi.domain.EntitySortie;
-import com.webservices.bykeapi.utils.PostRequestReturn;
+import com.webservices.bykeapi.domain.Sortie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Entity;
 import java.util.List;
 
 @RestController
@@ -20,24 +20,29 @@ public class SortieController {
     }
 
     @GetMapping("")
-    public List<EntitySortie> getSorties() {
+    public List<Sortie> getSorties() {
         return sortieService.getSorties();
     }
 
     @GetMapping("/{id}")
-    public EntitySortie getSortieById(@PathVariable("id") int id) {
+    public Sortie getSortieById(@PathVariable("id") int id) {
         return sortieService.getSortieById(id);
     }
 
     @PostMapping("")
-    public ResponseEntity addSortie(@RequestBody EntitySortie sortie) {
-        PostRequestReturn<EntitySortie> obj = sortieService.addSortie(sortie);
+    public ResponseEntity addSortie(@RequestBody Sortie sortie) {
+        Sortie _sortie = sortieService.addSortie(sortie);
 
-        return ResponseEntity.ok().body(obj.getJson());
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+
+        node.put("numSortie", _sortie.getId());
+
+        return ResponseEntity.ok().body(node);
     }
 
     @PutMapping("/{id}")
-    public void updateSortie(@RequestBody EntitySortie sortie, @PathVariable("id") int id) {
+    public void updateSortie(@RequestBody Sortie sortie, @PathVariable("id") int id) {
         sortieService.updateSortie(id, sortie);
     }
 
