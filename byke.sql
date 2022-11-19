@@ -25,6 +25,7 @@ use byke;
 CREATE TABLE utilisateur
 (
     num_util       int(11) NOT NULL AUTO_INCREMENT,
+    pseudo_util    varchar(50) NOT NULL,
     nom_util       char(20)      DEFAULT NULL,
     prenom_util    char(20)      DEFAULT NULL,
     mdp_util       char(100)      DEFAULT NULL,
@@ -39,9 +40,10 @@ CREATE TABLE utilisateur
 -- Déchargement des données de la table utilisateur
 --
 
-INSERT INTO utilisateur (num_util, nom_util, prenom_util, date_naissance, taille, poids)
-VALUES (1, 'GALLOIS', 'Jean', '1964-04-23', '183.00', '75.00'),
-       (2, 'VILLE', 'Pierre', '1962-04-12', '173.00', '69.00');
+INSERT INTO utilisateur (pseudo_util, nom_util, prenom_util, date_naissance, taille, poids, mdp_util)
+VALUES ('GALLOIS_Jean', 'GALLOIS', 'Jean', '1964-04-23', '183.00', '75.00', '$2a$04$CQCsj3BONbDGpAfw60a2vedagwH1jUxRt4O8Se9YdfTVyvF/YerlS'),
+       ('VILLE_Pierre', 'VILLE', 'Pierre', '1962-04-12', '173.00', '69.00', '$2a$04$CQCsj3BONbDGpAfw60a2vedagwH1jUxRt4O8Se9YdfTVyvF/YerlS'),
+       ('Merlot', 'MICHON', 'John', '2001-09-11', '182.00', '80,50', '$2a$04$CQCsj3BONbDGpAfw60a2vedagwH1jUxRt4O8Se9YdfTVyvF/YerlS');
 
 -- --------------------------------------------------------
 

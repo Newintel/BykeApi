@@ -6,10 +6,17 @@ import java.time.LocalDate;
 
 @Entity(name = "Utilisateur")
 @Table(name = "utilisateur", schema = "byke")
+@NamedQueries({
+        @NamedQuery(name = "Utilisateur.recherchePseudo", query = "select u from Utilisateur u where u.pseudoUtil = ?1")
+})
 public class Utilisateur {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_util", nullable = false)
     private Integer id;
+
+    @Column(name = "pseudo_util", nullable = false, length = 50)
+    private String pseudoUtil;
 
     @Column(name = "nom_util", length = 20)
     private String nomUtil;
@@ -35,6 +42,14 @@ public class Utilisateur {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPseudoUtil() {
+        return pseudoUtil;
+    }
+
+    public void setPseudoUtil(String pseudoUtil) {
+        this.pseudoUtil = pseudoUtil;
     }
 
     public String getNomUtil() {
