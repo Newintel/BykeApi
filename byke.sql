@@ -244,58 +244,6 @@ VALUES (1, 1, 1, 'RONTALON', '45.66052627560000', '4.63221406937000'),
        (26, 13, 2, 'SAINTE CONSORCE', '45.77646635536404', '4.69614559515543'),
        (27, 14, 2, 'SAINT GENIS LES OLLIERES', '45.75796018172125', '4.72596372582408');
 
-
--- --------------------------------------------------------
-
---
--- Structure de la table a_pour_distance
---
-
-CREATE TABLE a_pour_distance
-(
-    id_etape_dep int(11) NOT NULL,
-    id_etape_arr int(11) NOT NULL,
-    nbr_km        decimal(6, 2) DEFAULT NULL,
-    PRIMARY KEY (id_etape_dep, id_etape_arr),
-    FOREIGN KEY (id_etape_dep) REFERENCES etape (id_etape),
-    FOREIGN KEY (id_etape_arr) REFERENCES etape (id_etape)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
---
--- Déchargement des données de la table a_pour_distance
---
-
-INSERT INTO a_pour_distance (id_etape_dep, id_etape_arr, nbr_km)
-VALUES (1, 3, '6.40'),
-       (3, 5, '6.80'),
-       (5, 7, '8.60'),
-       (7, 9, '5.60'),
-       (9, 11, '5.30'),
-       (11, 13, '7.20'),
-       (13, 15, '5.10'),
-       (15, 17, '8.60'),
-       (17, 19, '2.70'),
-       (19, 21, '6.50'),
-       (21, 23, '5.20'),
-       (23, 25, '4.90'),
-       (25, 1, '15.20'),
-       (2, 4, '2.60'),
-       (4, 6, '12.90'),
-       (6, 8, '4.60'),
-       (8, 10, '6.40'),
-       (10, 12, '8.10'),
-       (12, 14, '6.70'),
-       (14, 16, '5.10'),
-       (16, 18, '2.70'),
-       (18, 20, '3.70'),
-       (20, 22, '2.70'),
-       (22, 24, '6.50'),
-       (24, 26, '5.20'),
-       (26, 27, '4.90'),
-       (27, 2, '10.70');
-
-
 /*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
