@@ -1,5 +1,7 @@
 package com.webservices.bykeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,8 +15,20 @@ public class Sortie {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "num_util", nullable = false)
-    private Utilisateur numUtil;
+    @JoinColumn(name = "num_util", nullable = false, updatable = false, insertable = false)
+    @JsonIgnore
+    private Utilisateur utilisateur;
+
+    public Integer getNumUtil() {
+        return numUtil;
+    }
+
+    public void setNumUtil(Integer numUtil) {
+        this.numUtil = numUtil;
+    }
+
+    @Column(name = "num_util")
+    private Integer numUtil;
 
     @Column(name = "date_sortie")
     private LocalDate dateSortie;
@@ -39,12 +53,12 @@ public class Sortie {
         this.id = id;
     }
 
-    public Utilisateur getNumUtil() {
-        return numUtil;
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 
-    public void setNumUtil(Utilisateur numUtil) {
-        this.numUtil = numUtil;
+    public void setUtilisateur(Utilisateur numUtil) {
+        this.utilisateur = numUtil;
     }
 
     public LocalDate getDateSortie() {

@@ -28,7 +28,7 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
     // on accède à l'utilisateur
     unUtilisateur = unUtilisateurRepostory.recherchePseudo(username);
     if (unUtilisateur != null) {
-        return new User(unUtilisateur.getNomUtil(), unUtilisateur.getMdpUtil(),
+        return new User(unUtilisateur.getPseudoUtil(), unUtilisateur.getMdpUtil(),
                 new ArrayList<>());
     } else {
         throw new UsernameNotFoundException("User not found with username: " + username);
