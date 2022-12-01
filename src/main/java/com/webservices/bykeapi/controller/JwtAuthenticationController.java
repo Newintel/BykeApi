@@ -2,8 +2,7 @@ package com.webservices.bykeapi.controller;
 
 import com.webservices.bykeapi.config.JwtTokenUtil;
 import com.webservices.bykeapi.domain.JwtResponse;
-import com.webservices.bykeapi.domain.Utilisateur;
-import com.webservices.bykeapi.repository.UtilisateurRepository;
+import com.webservices.bykeapi.domain.User;
 import com.webservices.bykeapi.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,14 +31,14 @@ public class JwtAuthenticationController {
     public JwtAuthenticationController() {}
     // auhentification  qui va généré un jeton
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody Utilisateur unUti)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user)
             throws Exception {
         try {
             // On contrôle l'utilisateur
-            UserDetails userDetails= appelAuthentication(unUti.getPseudoUtil(), unUti.getMdpUtil());
+            UserDetails userDetails= appelAuthentication(user.getUsername(), user.getPassword());
             // on récupère les informations
             // nouvel accès à la base de données
-            //final UserDetails userDetails = userDetailsService.loadUserByUsername(unUti.getNomUtil());
+            //final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getNomUtil());
             // On génère le jeton
             final String token = jwtTokenUtil.generateToken(userDetails);
             // on retourne le jeton dans un flux json

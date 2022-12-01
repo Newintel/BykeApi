@@ -1,7 +1,6 @@
 package com.webservices.bykeapi.service;
 
-import com.webservices.bykeapi.domain.Utilisateur;
-import com.webservices.bykeapi.repository.UtilisateurRepository;
+import com.webservices.bykeapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,21 +13,21 @@ import java.util.ArrayList;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private UtilisateurRepository unUtilisateurRepostory;
+    private UserRepository userRepository;
 
     // on initialise
     @Autowired
-    public JwtUserDetailsService(UtilisateurRepository UtilisateurRepostory) {
-        this.unUtilisateurRepostory = UtilisateurRepostory;
+    public JwtUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 @Override
 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Utilisateur unUtilisateur = null;
+    com.webservices.bykeapi.domain.User user = null;
     // on accède à l'utilisateur
-    unUtilisateur = unUtilisateurRepostory.recherchePseudo(username);
-    if (unUtilisateur != null) {
-        return new User(unUtilisateur.getPseudoUtil(), unUtilisateur.getMdpUtil(),
+    user = userRepository.findByUsername(username);
+    if (user != null) {
+        return new User(user.getUsername(), user.getPassword(),
                 new ArrayList<>());
     } else {
         throw new UsernameNotFoundException("User not found with username: " + username);

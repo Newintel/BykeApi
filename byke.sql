@@ -19,28 +19,28 @@ use byke;
 -- --------------------------------------------------------
 
 --
--- Structure de la table utilisateur
+-- Structure de la table user
 --
 
-CREATE TABLE utilisateur
+CREATE TABLE user
 (
-    num_util       int(11) NOT NULL AUTO_INCREMENT,
-    pseudo_util    varchar(50) NOT NULL,
-    nom_util       char(20)      DEFAULT NULL,
-    prenom_util    char(20)      DEFAULT NULL,
-    mdp_util       char(100)      DEFAULT NULL,
-    date_naissance date          DEFAULT NULL,
-    taille         decimal(6, 2) DEFAULT NULL,
-    poids          decimal(6, 2) DEFAULT NULL,
-    PRIMARY KEY (num_util)
+    id       int(11) NOT NULL AUTO_INCREMENT,
+    username    varchar(50) NOT NULL,
+    lastname       char(20)      DEFAULT NULL,
+    firstname    char(20)      DEFAULT NULL,
+    password       char(100)      DEFAULT NULL,
+    birthdate date          DEFAULT NULL,
+    size         decimal(6, 2) DEFAULT NULL,
+    weight          decimal(6, 2) DEFAULT NULL,
+    PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 --
--- Déchargement des données de la table utilisateur
+-- Déchargement des données de la table user
 --
 
-INSERT INTO utilisateur (pseudo_util, nom_util, prenom_util, date_naissance, taille, poids, mdp_util)
+INSERT INTO user (username, lastname, firstname, birthdate, size, weight, password)
 VALUES ('GALLOIS_Jean', 'GALLOIS', 'Jean', '1964-04-23', '183.00', '75.00', '$2a$04$CQCsj3BONbDGpAfw60a2vedagwH1jUxRt4O8Se9YdfTVyvF/YerlS'),
        ('VILLE_Pierre', 'VILLE', 'Pierre', '1962-04-12', '173.00', '69.00', '$2a$04$CQCsj3BONbDGpAfw60a2vedagwH1jUxRt4O8Se9YdfTVyvF/YerlS'),
        ('Merlot', 'MICHON', 'John', '2001-09-11', '182.00', '80,50', '$2a$04$CQCsj3BONbDGpAfw60a2vedagwH1jUxRt4O8Se9YdfTVyvF/YerlS');
@@ -48,20 +48,136 @@ VALUES ('GALLOIS_Jean', 'GALLOIS', 'Jean', '1964-04-23', '183.00', '75.00', '$2a
 -- --------------------------------------------------------
 
 --
--- Structure de la table sortie
+-- Structure de la table path
 --
 
-CREATE TABLE sortie
+CREATE TABLE path
 (
-    num_sortie         int(11) NOT NULL AUTO_INCREMENT,
-    num_util           int(11) NOT NULL,
-    date_sortie        date          DEFAULT NULL,
-    heure_depart       time          DEFAULT NULL,
-    heure_arrivee      time          DEFAULT NULL,
-    lieu_depart        char(30)      DEFAULT NULL,
-    distance_parcourue decimal(6, 2) DEFAULT NULL,
-    PRIMARY KEY (num_sortie),
-    FOREIGN KEY (num_util) REFERENCES utilisateur (num_util)
+    id         int(11) NOT NULL AUTO_INCREMENT,
+    creatorId           int(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (creatorId) REFERENCES user (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+--
+-- Déchargement des données de la table path
+--
+
+INSERT INTO path (creatorId)
+VALUES (1),
+       (2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table bike
+--
+
+CREATE TABLE bike
+(
+    id  int(11) NOT NULL AUTO_INCREMENT,
+    brand char(20)      DEFAULT NULL,
+    wheels    decimal(6, 2) DEFAULT NULL,
+    cassette  char(10)      DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+--
+-- Déchargement des données de la table bike
+--
+
+INSERT INTO bike (brand, wheels, cassette)
+VALUES ('LAPIERRE X-CONTROL 3', '29.00', '11/42'),
+       ('CANONDALE SYNASPE', '700.00', '11/28'),
+       ('CUBE Kathmandu Hybri', '29.00', '11/52');
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table electricBike
+--
+
+CREATE TABLE electricBike
+(
+    id            int(11) NOT NULL,
+    engine_power   int(11)       DEFAULT NULL,
+    battery_power int(11)       DEFAULT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES bike (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+--
+-- Déchargement des données de la table electricBike
+--
+
+INSERT INTO electricBike (id, engine_power, battery_power)
+VALUES (3, 250, 625);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table mountainBike
+--
+
+CREATE TABLE mountainBike
+(
+    id  int(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES bike (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+--
+-- Déchargement des données de la table mountainBike
+--
+
+INSERT INTO mountainBike (id)
+VALUES (1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table roadBike
+--
+
+CREATE TABLE roadBike
+(
+    id    int(11) NOT NULL,
+    frame_type char(20)      DEFAULT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES bike (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+--
+-- Déchargement des données de la table roadBike
+--
+
+INSERT INTO roadBike (id, frame_type)
+VALUES (2, 'CARBONE');
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table excursion
+--
+
+CREATE TABLE excursion
+(
+    pathId         int(11) NOT NULL,
+    userId           int(11) NOT NULL,
+    bikeId           int(11) DEFAULT -1,
+    departure       datetime          DEFAULT NULL,
+    arrival       datetime          DEFAULT NULL,
+    PRIMARY KEY (userId, departure),
+    FOREIGN KEY (userId) REFERENCES user (id),
+    FOREIGN KEY (pathId) REFERENCES path (id),
+    FOREIGN KEY (bikeId) REFERENCES bike (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -69,151 +185,57 @@ CREATE TABLE sortie
 -- Déchargement des données de la table sortie
 --
 
-INSERT INTO sortie (num_sortie, num_util, date_sortie, heure_depart, heure_arrivee, lieu_depart, distance_parcourue)
-VALUES (1, 1, '2022-09-30', '08:15:00', '12:20:00', 'SAINT GENIS LES OLLLIERES', '86.20'),
-       (2, 2, '2022-09-23', '08:15:00', '12:45:00', 'SAINT GENIS LES OLLLIERES', '88.10');
+INSERT INTO excursion (pathId, userId, departure, arrival, bikeId)
+VALUES (1, 1, '2022-09-30 08:15:00', '2022-09-30 12:20:00', 1),
+       (2, 2, '2022-09-23 08:15:00', '2022-09-23 12:45:00', 3);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table velo
+-- Structure de la table purchase
 --
 
-CREATE TABLE velo
+CREATE TABLE purchase
 (
-    id_velo  int(11) NOT NULL AUTO_INCREMENT,
-    nom_velo char(20)      DEFAULT NULL,
-    roues    decimal(6, 2) DEFAULT NULL,
-    casette  char(10)      DEFAULT NULL,
-    PRIMARY KEY (id_velo)
+    bikeId   int(11) NOT NULL,
+    userId  int(11) NOT NULL,
+    purchaseDate date    NOT NULL,
+    PRIMARY KEY (bikeId, userId, purchaseDate),
+    FOREIGN KEY (bikeId) REFERENCES bike (id),
+    FOREIGN KEY (userId) REFERENCES user (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 --
--- Déchargement des données de la table velo
+-- Déchargement des données de la table purchase
 --
 
-INSERT INTO velo (id_velo, nom_velo, roues, casette)
-VALUES (1, 'LAPIERRE X-CONTROL 3', '29.00', '11/42'),
-       (2, 'CANONDALE SYNASPE', '700.00', '11/28'),
-       (3, 'CUBE Kathmandu Hybri', '29.00', '11/52');
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table vae
---
-
-CREATE TABLE vae
-(
-    id_velo            int(11) NOT NULL,
-    puissance_moteur   int(11)       DEFAULT NULL,
-    puissance_batterie int(11)       DEFAULT NULL,
-    PRIMARY KEY (id_velo),
-    FOREIGN KEY (id_velo) REFERENCES velo (id_velo)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
---
--- Déchargement des données de la table vae
---
-
-INSERT INTO vae (id_velo, puissance_moteur, puissance_batterie)
-VALUES (3, 250, 625);
-
--- --------------------------------------------------------
-
---
--- Structure de la table vtt
---
-
-CREATE TABLE vtt
-(
-    id_velo  int(11) NOT NULL,
-    PRIMARY KEY (id_velo),
-    FOREIGN KEY (id_velo) REFERENCES velo (id_velo)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
---
--- Déchargement des données de la table vtt
---
-
-INSERT INTO vtt (id_velo)
-VALUES (1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table route
---
-
-CREATE TABLE route
-(
-    id_velo    int(11) NOT NULL,
-    type_cadre char(20)      DEFAULT NULL,
-    PRIMARY KEY (id_velo),
-    FOREIGN KEY (id_velo) REFERENCES velo (id_velo)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
---
--- Déchargement des données de la table route
---
-
-INSERT INTO route (id_velo, type_cadre)
-VALUES (2, 'CARBONE');
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table achete
---
-
-CREATE TABLE achete
-(
-    id_velo   int(11) NOT NULL,
-    num_util  int(11) NOT NULL,
-    date_jour date    NOT NULL,
-    PRIMARY KEY (id_velo, num_util, date_jour),
-    FOREIGN KEY (id_velo) REFERENCES velo (id_velo),
-    FOREIGN KEY (num_util) REFERENCES utilisateur (num_util)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
---
--- Déchargement des données de la table achete
---
-
-INSERT INTO achete (id_velo, num_util, date_jour)
+INSERT INTO purchase (bikeId, userId, purchaseDate)
 VALUES (1, 1, '2013-11-10'),
        (2, 1, '2018-05-12'),
-       (3, 1, '2020-09-15');
+       (3, 2, '2020-09-15');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table etape
+-- Structure de la table step
 --
 
-CREATE TABLE etape
+CREATE TABLE step
 (
-    id_etape   int(11) NOT NULL AUTO_INCREMENT,
-    nom_etape  char(25)        DEFAULT NULL,
+    id   int(11) NOT NULL AUTO_INCREMENT,
+    location  char(25)        DEFAULT NULL,
     latitude   decimal(16, 14) DEFAULT NULL,
     longitude  decimal(16, 14) DEFAULT NULL,
-    PRIMARY KEY (id_etape),
-    UNIQUE KEY (id_etape)
+    PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 --
--- Déchargement des données de la table etape
+-- Déchargement des données de la table step
 --
 
-INSERT INTO etape (id_etape, nom_etape, latitude, longitude)
+INSERT INTO step (id, location, latitude, longitude)
 VALUES (1, 'RONTALON', '45.66052627560000', '4.63221406937000'),
        (2, 'COL DE LA LUERE', '45.76320538304853', '4.62908812807553'),
        (3, 'SAINT ANDRE LA COTE', '45.63100000000000', '4.60100000000000'),
@@ -236,25 +258,25 @@ VALUES (1, 'RONTALON', '45.66052627560000', '4.63221406937000'),
 -- --------------------------------------------------------
 
 --
--- Structure de la table sortie_etape
+-- Structure de la table pathStep
 --
 
-CREATE TABLE sortie_etape
+CREATE TABLE pathStep
 (
-    num_sortie int(11) NOT NULL,
-    id_etape   int(11) NOT NULL,
-    num_etape  int(11) NOT NULL,
-    PRIMARY KEY (num_sortie, id_etape, num_etape),
-    FOREIGN KEY (num_sortie) REFERENCES sortie (num_sortie),
-    FOREIGN KEY (id_etape) REFERENCES etape (id_etape)
+    pathId int(11) NOT NULL,
+    stepId   int(11) NOT NULL,
+    position  int(11) NOT NULL,
+    FOREIGN KEY (pathId) REFERENCES path (id),
+    FOREIGN KEY (stepId) REFERENCES step (id),
+    PRIMARY KEY (pathId, position)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
 --
--- Déchargement des données de la table sortie_etape
+-- Déchargement des données de la table pathStep
 --
 
-INSERT INTO sortie_etape (num_sortie, id_etape, num_etape)
+INSERT INTO pathStep (pathId, stepId, position)
 VALUES (1, 1, 1),
        (1, 3, 2),
        (1, 5, 3),
