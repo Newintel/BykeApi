@@ -13,24 +13,22 @@ import java.util.ArrayList;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     // on initialise
     @Autowired
-    public JwtUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public JwtUserDetailsService(UserRepository _userRepository) {
+        this.userRepository = _userRepository;
     }
 
-@Override
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    com.webservices.bykeapi.domain.User user = null;
-    // on accède à l'utilisateur
-    user = userRepository.findByUsername(username);
-    if (user != null) {
-        return new User(user.getUsername(), user.getPassword(),
-                new ArrayList<>());
-    } else {
-        throw new UsernameNotFoundException("User not found with username: " + username);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        com.webservices.bykeapi.domain.User user = userRepository.findByUsername(username);
+        if (user != null) {
+            return new User(user.getUsername(), user.getPassword(),
+                    new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
     }
-}
 }

@@ -28,7 +28,7 @@ CREATE TABLE user
     username    varchar(50) NOT NULL,
     lastname       char(20)      DEFAULT NULL,
     firstname    char(20)      DEFAULT NULL,
-    password       char(100)      DEFAULT NULL,
+    password       char(100)      NOT NULL,
     birthdate date          DEFAULT NULL,
     size         decimal(6, 2) DEFAULT NULL,
     weight          decimal(6, 2) DEFAULT NULL,
