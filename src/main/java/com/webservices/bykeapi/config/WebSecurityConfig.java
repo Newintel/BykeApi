@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // On n'utilise pas de  CSRF (cross-site request forgery) pour cet exemple
         httpSecurity.csrf().disable()
                 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/login").permitAll().
+                .authorizeRequests().antMatchers("/login", "/login/register").permitAll().
                 // toutes les requêtes doivent être authentifiées avec le jeton
                         anyRequest().authenticated().and().
                 //assurez-vous d'utiliser une session sans état
@@ -82,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/login")
+        web.ignoring().antMatchers("/ping")
                 .antMatchers(HttpMethod.OPTIONS, "/**");
     }
 

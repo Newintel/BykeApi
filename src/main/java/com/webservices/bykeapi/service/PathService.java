@@ -2,9 +2,7 @@ package com.webservices.bykeapi.service;
 
 import com.webservices.bykeapi.domain.Path;
 import com.webservices.bykeapi.repository.PathRepository;
-import com.webservices.bykeapi.domain.Path;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.List;
 public class PathService {
     private final PathRepository pathRepository;
 
-    @Autowired
     public PathService(PathRepository pathRepository) {
         this.pathRepository = pathRepository;
     }
