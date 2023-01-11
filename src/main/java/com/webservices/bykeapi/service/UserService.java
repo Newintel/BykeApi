@@ -20,6 +20,10 @@ public class UserService {
         );
     }
 
+    public User getByUsername(String username) throws IllegalArgumentException {
+        return userRepository.findByUsername(username);
+    }
+
     public User create(User user) throws IllegalArgumentException {
         User _user = new User();
         _user.setUsername(user.getUsername());

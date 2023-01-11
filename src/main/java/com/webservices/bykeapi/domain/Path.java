@@ -1,6 +1,10 @@
 package com.webservices.bykeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "path", schema = "byke")
@@ -9,9 +13,21 @@ public class Path {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "creatorId", nullable = false)
     private User creator;
+
+    @OneToMany(mappedBy = "path")
+    @JsonIgnoreProperties({"path"})
+    private Set<Pathstep> pathsteps = new LinkedHashSet<>();
+
+    public Set<Pathstep> getPathsteps() {
+        return pathsteps;
+    }
+
+    public void setPathsteps(Set<Pathstep> pathsteps) {
+        this.pathsteps = pathsteps;
+    }
 
     public Integer getId() {
         return id;

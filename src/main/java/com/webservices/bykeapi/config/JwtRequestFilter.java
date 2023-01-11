@@ -3,7 +3,6 @@ package com.webservices.bykeapi.config;
 
 import com.webservices.bykeapi.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,6 +62,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 // L'utilisateur est authentifié, et il a passé la sécurité de Spring
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                System.out.println("User " + username + " is authenticated");
             }
         }
         chain.doFilter(request, response);

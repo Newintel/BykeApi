@@ -4,12 +4,14 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
 public class PurchaseId implements Serializable {
+    @Serial
     private static final long serialVersionUID = 818989064353673278L;
     @Column(name = "bikeId", nullable = false)
     private Integer bikeId;

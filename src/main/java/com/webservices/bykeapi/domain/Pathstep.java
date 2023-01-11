@@ -9,11 +9,11 @@ public class Pathstep {
     private PathstepId id;
 
     @MapsId("pathId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "pathId", nullable = false)
     private Path path;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "stepId", nullable = false)
     private Step step;
 

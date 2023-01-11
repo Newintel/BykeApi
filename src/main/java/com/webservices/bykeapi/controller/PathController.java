@@ -30,8 +30,8 @@ public class PathController {
     }
 
     @PostMapping("")
-    public ResponseEntity addPath(@RequestBody Path excursion) {
-        Path _path = pathService.create(excursion);
+    public ResponseEntity addPath(@RequestBody Path path) {
+        Path _path = pathService.create(path);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();

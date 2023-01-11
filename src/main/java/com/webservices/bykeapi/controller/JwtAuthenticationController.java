@@ -33,11 +33,12 @@ public class JwtAuthenticationController {
         this.userService = userService;
     }
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody User _user) {
         try {
-            UserDetails userDetails= authenticate(user.getUsername(), user.getPassword());
+            UserDetails userDetails= authenticate(_user.getUsername(), _user.getPassword());
             final String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(new JwtResponse(token));
+            User user = userService.getByUsername(_user.getUsername());
+            return ResponseEntity.ok(new JwtResponse(token, user.getId()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

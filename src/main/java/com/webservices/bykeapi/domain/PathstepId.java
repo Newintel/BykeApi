@@ -4,11 +4,13 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class PathstepId implements Serializable {
+    @Serial
     private static final long serialVersionUID = 6180490764748444938L;
     @Column(name = "pathId", nullable = false)
     private Integer pathId;
