@@ -3,7 +3,7 @@ package com.webservices.bykeapi.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pathstep", schema = "byke")
+@Table(name = "pathStep", schema = "byke")
 public class Pathstep {
     @EmbeddedId
     private PathstepId id;

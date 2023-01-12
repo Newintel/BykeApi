@@ -3,7 +3,7 @@ package com.webservices.bykeapi.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "electricbike", schema = "byke")
+@Table(name = "electricBike", schema = "byke")
 public class Electricbike {
     @Id
     @Column(name = "id", nullable = false)
