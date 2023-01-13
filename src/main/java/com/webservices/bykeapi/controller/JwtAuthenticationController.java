@@ -12,8 +12,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -37,8 +37,7 @@ public class JwtAuthenticationController {
         try {
             UserDetails userDetails= authenticate(_user.getUsername(), _user.getPassword());
             final String token = jwtTokenUtil.generateToken(userDetails);
-            User user = userService.getByUsername(_user.getUsername());
-            return ResponseEntity.ok(new JwtResponse(token, user.getId()));
+            return ResponseEntity.ok(new JwtResponse(token));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -55,6 +54,17 @@ public class JwtAuthenticationController {
             return ResponseEntity.ok().body(node);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<User> getUser() {
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = userService.getByUsername(username);
+            return ResponseEntity.ok().body(user);
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
