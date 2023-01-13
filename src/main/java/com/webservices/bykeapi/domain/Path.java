@@ -21,6 +21,17 @@ public class Path {
     @JsonIgnoreProperties({"path"})
     private Set<Pathstep> pathsteps = new LinkedHashSet<>();
 
+    @Column(name = "name", length = 50)
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Set<Pathstep> getPathsteps() {
         return pathsteps;
     }

@@ -55,6 +55,7 @@ CREATE TABLE path
 (
     id         int(11) NOT NULL AUTO_INCREMENT,
     creatorId           int(11) NOT NULL,
+    name        varchar(50) DEFAULT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (creatorId) REFERENCES user (id)
 ) ENGINE = InnoDB
@@ -64,9 +65,9 @@ CREATE TABLE path
 -- Déchargement des données de la table path
 --
 
-INSERT INTO path (creatorId)
-VALUES (1),
-       (2);
+INSERT INTO path (creatorId, name)
+VALUES (1, 'Chemin GALLOIS'),
+       (2, 'Chemin VILLE');
 
 -- --------------------------------------------------------
 
