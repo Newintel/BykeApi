@@ -17,7 +17,7 @@ public class Excursion {
     @MapsId("userId")
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
-    @JsonIgnore
+    @JsonIncludeProperties({"id", "username"})
     private User user;
 
     @ManyToOne
