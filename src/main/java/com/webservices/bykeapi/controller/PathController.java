@@ -24,6 +24,11 @@ public class PathController {
         return pathService.getAll();
     }
 
+    @GetMapping("/mostPopular")
+    public List<Path> getMostPopular() {
+        return pathService.getMostPopular();
+    }
+
     @GetMapping("/{id}")
     public Path getPathById(@PathVariable("id") int id) {
         return pathService.getById(id);

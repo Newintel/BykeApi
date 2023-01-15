@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PathService {
@@ -39,5 +40,9 @@ public class PathService {
         BeanUtils.copyProperties(sortie, _path, "id");
 
         pathRepository.save(_path);
+    }
+
+    public List<Path> getMostPopular() {
+        return pathRepository.getMostPopular();
     }
 }
