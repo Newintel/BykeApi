@@ -174,7 +174,7 @@ CREATE TABLE excursion
     userId           int(11) NOT NULL,
     bikeId           int(11) DEFAULT -1,
     departure       datetime          NOT NULL,
-    arrival       datetime          NOT NULL,
+    arrival       datetime          DEFAULT NULL,
     PRIMARY KEY (userId, departure),
     FOREIGN KEY (userId) REFERENCES user (id),
     FOREIGN KEY (pathId) REFERENCES path (id),
