@@ -1,8 +1,6 @@
 package com.webservices.bykeapi.service;
 
-import com.webservices.bykeapi.domain.Excursion;
-import com.webservices.bykeapi.domain.ExcursionDto;
-import com.webservices.bykeapi.domain.User;
+import com.webservices.bykeapi.domain.*;
 import com.webservices.bykeapi.repository.ExcursionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
@@ -31,14 +29,52 @@ public class ExcursionService {
         return excursionRepository.findId(id);
     }
 
-    public Excursion create(Excursion excursion) {
-        return excursionRepository.save(excursion);
+    public Excursion create(ExcursionDto excursion) {
+        Excursion newExcursion = new Excursion();
+        newExcursion.setId2(0);
+
+        ExcursionId id = new ExcursionId();
+        id.setUserId(excursion.getUserId());
+        id.setDeparture(excursion.getDeparture());
+
+        User user = new User();
+        user.setId(excursion.getUserId());
+
+        Path path = new Path();
+        path.setId(excursion.getPathId());
+
+        Bike bike = new Bike();
+        bike.setId(excursion.getBikeId());
+
+        newExcursion.setId(id);
+        newExcursion.setPath(path);
+        newExcursion.setUser(user);
+        newExcursion.setBike(bike);
+
+        return excursionRepository.save(newExcursion);
     }
 
     public Excursion stop(int id, ExcursionDto excursionDto) {
         Excursion excursion = excursionRepository.findId(id);
         BeanUtils.copyProperties(excursionDto, excursion, "id");
         return excursionRepository.save(excursion);
+    }
+
+    public void update(int id, ExcursionDto excursionDto) {
+        Excursion excursion = excursionRepository.findId(id);
+
+        Bike bike = new Bike();
+        bike.setId(excursionDto.getBikeId());
+        Path path = new Path();
+        path.setId(excursionDto.getPathId());
+
+        excursion.setBike(bike);
+        excursion.setPath(path);
+
+        System.out.println("excursion: " + id + " -- " + excursionDto.getDeparture());
+
+        excursionRepository.updateDeparture(id, excursionDto.getDeparture());
+        excursionRepository.save(excursion);
     }
 
     public void delete(int id) {

@@ -1,6 +1,7 @@
 package com.webservices.bykeapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.Instant;

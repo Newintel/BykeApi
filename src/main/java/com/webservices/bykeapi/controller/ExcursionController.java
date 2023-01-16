@@ -1,6 +1,5 @@
 package com.webservices.bykeapi.controller;
 
-import com.webservices.bykeapi.domain.Excursion;
 import com.webservices.bykeapi.domain.ExcursionDto;
 import com.webservices.bykeapi.service.ExcursionService;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +25,18 @@ public class ExcursionController {
     }
 
     @PostMapping("")
-    public Object createExcursion(@RequestBody Excursion excursion) {
+    public Object createExcursion(@RequestBody ExcursionDto excursion) {
         return excursionService.create(excursion);
     }
 
     @PutMapping("/{id}/end")
-    public void updateExcursion(@PathVariable("id") int id, @RequestBody ExcursionDto excursion) {
+    public void endExcursion(@PathVariable("id") int id, @RequestBody ExcursionDto excursion) {
         excursionService.stop(id, excursion);
+    }
+
+    @PutMapping("/{id}")
+    public void updateExcursion(@PathVariable("id") int id, @RequestBody ExcursionDto excursion) {
+        excursionService.update(id, excursion);
     }
 
     @DeleteMapping("/{id}")
