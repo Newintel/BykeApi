@@ -90,4 +90,8 @@ public class PathService {
         pathstepRepository.deleteById(pathstepId);
         pathstepRepository.modifyPositionFrom(id, position, -1);
     }
+
+    public void removeAllSteps(int id) {
+        pathstepRepository.deleteByPathId(id);
+    }
 }

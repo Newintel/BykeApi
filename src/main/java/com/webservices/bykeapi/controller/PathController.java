@@ -14,11 +14,9 @@ import java.util.List;
 @RequestMapping("/paths")
 public class PathController {
     private final PathService pathService;
-    private final StepService stepService;
 
     public PathController(PathService pathService, StepService stepService) {
         this.pathService = pathService;
-        this.stepService = stepService;
     }
 
     @GetMapping("")
@@ -47,18 +45,21 @@ public class PathController {
     }
 
     @PutMapping("/{id}/steps/add/{stepIds}")
-    public Path addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds, @RequestParam("position") int position) {
+    public void addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds, @RequestParam("position") int position) {
         int i = 0;
         for (Integer stepId : stepIds) {
             pathService.addStep(id, stepId, position + i++);
         }
-        return pathService.getById(id);
     }
 
     @PutMapping("/{id}/steps/remove/{stepId}")
-    public Path removeStepsFromPath(@PathVariable("id") int id, @PathVariable("stepId") Integer stepId) {
+    public void removeStepsFromPath(@PathVariable("id") int id, @PathVariable("stepId") Integer stepId) {
         pathService.removeStep(id, stepId);
-        return pathService.getById(id);
+    }
+
+    @PutMapping("/{id}/clear")
+    public void removeAllStepsFromPath(@PathVariable("id") int id) {
+        pathService.removeAllSteps(id);
     }
 
     @PutMapping("/{id}")
