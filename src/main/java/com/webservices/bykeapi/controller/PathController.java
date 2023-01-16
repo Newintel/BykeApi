@@ -1,10 +1,7 @@
 package com.webservices.bykeapi.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.webservices.bykeapi.service.PathService;
 import com.webservices.bykeapi.domain.Path;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,15 +37,8 @@ public class PathController {
     }
 
     @PostMapping("")
-    public ResponseEntity addPath(@RequestBody Path path) {
-        Path _path = pathService.create(path);
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
-
-        node.put("id", _path.getId());
-
-        return ResponseEntity.ok().body(node);
+    public Path addPath(@RequestBody Path path) {
+        return pathService.create(path);
     }
 
     @PutMapping("/{id}")
