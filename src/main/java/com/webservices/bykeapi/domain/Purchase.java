@@ -9,12 +9,12 @@ public class Purchase {
     private PurchaseId id;
 
     @MapsId("bikeId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "bikeId", nullable = false)
     private Bike bike;
 
     @MapsId("userId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
 

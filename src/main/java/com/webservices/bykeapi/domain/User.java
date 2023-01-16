@@ -1,9 +1,12 @@
 package com.webservices.bykeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "byke")
@@ -37,6 +40,18 @@ public class User {
 
     @Column(name = "weight", precision = 6, scale = 2)
     private BigDecimal weight;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private Set<Purchase> purchases = new LinkedHashSet<>();
+
+    public Set<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
+    }
 
     public Integer getId() {
         return id;
