@@ -2,12 +2,9 @@ package com.webservices.bykeapi.controller;
 
 
 import com.webservices.bykeapi.domain.Bike;
-import com.webservices.bykeapi.repository.BikeFull;
 import com.webservices.bykeapi.service.BikeService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +20,8 @@ public class BikeController {
     }
 
     @RequestMapping("/{id}")
-    public List<BikeFull> getBikes(@PathVariable("id") int id) {
-        return bikeService.getUserBikes(id);
+    public ResponseEntity<List<Object>> getBikes(@PathVariable("id") int id) {
+        return ResponseEntity.ok(bikeService.getUserBikes(id));
+//        return bikeService.getUserBikes(id);
     }
 }
