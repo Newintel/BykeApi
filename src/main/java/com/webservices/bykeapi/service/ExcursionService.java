@@ -1,6 +1,7 @@
 package com.webservices.bykeapi.service;
 
 import com.webservices.bykeapi.domain.Excursion;
+import com.webservices.bykeapi.domain.ExcursionDto;
 import com.webservices.bykeapi.domain.User;
 import com.webservices.bykeapi.repository.ExcursionRepository;
 import org.springframework.beans.BeanUtils;
@@ -34,10 +35,10 @@ public class ExcursionService {
         return excursionRepository.save(excursion);
     }
 
-    public Excursion update(int id, Excursion excursion) {
-        Excursion _excursion = excursionRepository.findId(id);
-        BeanUtils.copyProperties(excursion, _excursion, "id2", "id.userId", "id.departure");
-        return excursionRepository.save(_excursion);
+    public Excursion stop(int id, ExcursionDto excursionDto) {
+        Excursion excursion = excursionRepository.findId(id);
+        BeanUtils.copyProperties(excursionDto, excursion, "id");
+        return excursionRepository.save(excursion);
     }
 
     public void delete(int id) {
