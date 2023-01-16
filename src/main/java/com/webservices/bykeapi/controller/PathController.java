@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -45,10 +46,10 @@ public class PathController {
     }
 
     @PutMapping("/{id}/steps/add/{stepIds}")
-    public void addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds, @RequestParam("position") int position) {
+    public void addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds, @RequestParam(value = "position", required = false) Optional<Integer> position) {
         int i = 0;
         for (Integer stepId : stepIds) {
-            pathService.addStep(id, stepId, position + i++);
+            pathService.addStep(id, stepId, position.orElse(0) + i++);
         }
     }
 
