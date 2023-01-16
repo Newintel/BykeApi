@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StepService {
@@ -29,5 +30,9 @@ public class StepService {
         );
         BeanUtils.copyProperties(step, _step, "id");
         return stepRepository.save(_step);
+    }
+
+    public List<Integer> createAll(List<Step> steps) {
+        return steps.stream().map(step -> stepRepository.save(step).getId()).collect(Collectors.toList());
     }
 }

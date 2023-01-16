@@ -1,7 +1,10 @@
 package com.webservices.bykeapi.controller;
 
+import com.webservices.bykeapi.domain.PathDto;
 import com.webservices.bykeapi.service.PathService;
 import com.webservices.bykeapi.domain.Path;
+import com.webservices.bykeapi.service.StepService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +14,11 @@ import java.util.List;
 @RequestMapping("/paths")
 public class PathController {
     private final PathService pathService;
+    private final StepService stepService;
 
-    public PathController(PathService pathService) {
+    public PathController(PathService pathService, StepService stepService) {
         this.pathService = pathService;
+        this.stepService = stepService;
     }
 
     @GetMapping("")
@@ -37,8 +42,17 @@ public class PathController {
     }
 
     @PostMapping("")
-    public Path addPath(@RequestBody Path path) {
+    public Path addPath(@RequestBody PathDto path) {
         return pathService.create(path);
+    }
+
+    @PutMapping("/{id}/steps/add/{stepIds}")
+    public Path addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds) {
+        int i = 0;
+        for (Integer stepId : stepIds) {
+            pathService.addStep(id, stepId, ++i);
+        }
+        return pathService.getById(id);
     }
 
     @PutMapping("/{id}")

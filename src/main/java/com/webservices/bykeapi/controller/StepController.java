@@ -4,6 +4,7 @@ import com.webservices.bykeapi.domain.Step;
 import com.webservices.bykeapi.service.StepService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,11 @@ public class StepController {
     @PostMapping("")
     public Step createStep(@RequestBody Step step) {
         return stepService.create(step);
+    }
+
+    @PostMapping("/multiple")
+    public List<Integer> createSteps(@RequestBody List<Step> steps) {
+        return stepService.createAll(steps);
     }
 
     @PutMapping("/{id}")

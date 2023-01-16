@@ -30,6 +30,7 @@ public class Excursion {
     private Instant arrival;
 
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id2;
 
     public Integer getId2() {

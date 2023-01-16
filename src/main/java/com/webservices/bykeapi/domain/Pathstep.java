@@ -1,5 +1,7 @@
 package com.webservices.bykeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class Pathstep {
 
     @ManyToOne
     @JoinColumn(name = "stepId", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Step step;
 
     public PathstepId getId() {
