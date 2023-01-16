@@ -29,6 +29,17 @@ public class Excursion {
     @Column(name = "arrival")
     private Instant arrival;
 
+    @Column(name = "id", nullable = false)
+    private Integer id2;
+
+    public Integer getId2() {
+        return id2;
+    }
+
+    public void setId2(Integer id2) {
+        this.id2 = id2;
+    }
+
     public ExcursionId getId() {
         return id;
     }

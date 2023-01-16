@@ -26,6 +26,10 @@ public class PathService {
         );
     }
 
+    public List<Path> getByUserId(int id) {
+        return pathRepository.findAll().stream().filter(path -> path.getCreator().getId() == id).collect(Collectors.toList());
+    }
+
     public Path create(Path path) {
         return pathRepository.save(path);
     }

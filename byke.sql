@@ -170,6 +170,7 @@ VALUES (2, 'CARBONE');
 
 CREATE TABLE excursion
 (
+    id int NOT NULL AUTO_INCREMENT,
     pathId         int(11) NOT NULL,
     userId           int(11) NOT NULL,
     bikeId           int(11) DEFAULT -1,

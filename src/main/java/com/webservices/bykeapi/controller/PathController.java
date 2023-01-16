@@ -34,6 +34,11 @@ public class PathController {
         return pathService.getById(id);
     }
 
+    @GetMapping("/user/{id}")
+    public List<Path> getPathsByUserId(@PathVariable("id") int id) {
+        return pathService.getByUserId(id);
+    }
+
     @PostMapping("")
     public ResponseEntity addPath(@RequestBody Path path) {
         Path _path = pathService.create(path);
