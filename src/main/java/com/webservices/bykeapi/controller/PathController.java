@@ -47,11 +47,17 @@ public class PathController {
     }
 
     @PutMapping("/{id}/steps/add/{stepIds}")
-    public Path addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds) {
+    public Path addStepsToPath(@PathVariable("id") int id, @PathVariable("stepIds") List<Integer> stepIds, @RequestParam("position") int position) {
         int i = 0;
         for (Integer stepId : stepIds) {
-            pathService.addStep(id, stepId, ++i);
+            pathService.addStep(id, stepId, position + i++);
         }
+        return pathService.getById(id);
+    }
+
+    @PutMapping("/{id}/steps/remove/{stepId}")
+    public Path removeStepsFromPath(@PathVariable("id") int id, @PathVariable("stepId") Integer stepId) {
+        pathService.removeStep(id, stepId);
         return pathService.getById(id);
     }
 
