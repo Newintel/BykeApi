@@ -228,8 +228,8 @@ CREATE TABLE step
     id   int(11) NOT NULL AUTO_INCREMENT,
     creatorId int(11) DEFAULT NULL,
     location  char(25)        DEFAULT NULL,
-    latitude   decimal(16, 14) DEFAULT NULL,
-    longitude  decimal(16, 14) DEFAULT NULL,
+    latitude   decimal(16, 14) NOT NULL,
+    longitude  decimal(16, 14) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (creatorId) REFERENCES user (id)
 ) ENGINE = InnoDB
