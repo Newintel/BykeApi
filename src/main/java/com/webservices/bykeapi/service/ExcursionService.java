@@ -56,7 +56,7 @@ public class ExcursionService {
 
     public Excursion stop(int id, ExcursionDto excursionDto) {
         Excursion excursion = excursionRepository.findId(id);
-        BeanUtils.copyProperties(excursionDto, excursion, "id");
+        excursion.setArrival(excursionDto.getArrival());
         return excursionRepository.save(excursion);
     }
 

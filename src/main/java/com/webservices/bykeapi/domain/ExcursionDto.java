@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 public class ExcursionDto implements Serializable {
     private Instant departure;
+    private Instant arrival;
     private Integer userId;
     private Integer pathId;
     private Integer bikeId;
@@ -16,11 +17,12 @@ public class ExcursionDto implements Serializable {
     public ExcursionDto() {
     }
 
-    public ExcursionDto(Instant departure, Integer userId, Integer pathId, Integer bikeId) {
+    public ExcursionDto(Instant departure, Integer userId, Integer pathId, Integer bikeId, Instant arrival) {
         this.departure = departure;
         this.userId = userId;
         this.pathId = pathId;
         this.bikeId = bikeId;
+        this.arrival = arrival;
     }
 
     public Instant getDeparture() {
@@ -29,6 +31,14 @@ public class ExcursionDto implements Serializable {
 
     public void setDeparture(Instant departure) {
         this.departure = departure;
+    }
+
+    public Instant getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(Instant arrival) {
+        this.arrival = arrival;
     }
 
     public Integer getUserId() {
@@ -63,18 +73,20 @@ public class ExcursionDto implements Serializable {
         return Objects.equals(this.departure, entity.departure) &&
                 Objects.equals(this.userId, entity.userId) &&
                 Objects.equals(this.pathId, entity.pathId) &&
-                Objects.equals(this.bikeId, entity.bikeId);
+                Objects.equals(this.bikeId, entity.bikeId) &&
+                Objects.equals(this.arrival, entity.arrival);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(departure, userId, pathId, bikeId);
+        return Objects.hash(departure, userId, pathId, bikeId, arrival);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "departure = " + departure + ", " +
+                "departure = " + arrival + ", " +
                 "userId = " + userId + ", " +
                 "pathId = " + pathId + ", " +
                 "bikeId = " + bikeId + ")";

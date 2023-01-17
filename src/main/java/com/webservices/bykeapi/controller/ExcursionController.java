@@ -1,8 +1,11 @@
 package com.webservices.bykeapi.controller;
 
+import com.webservices.bykeapi.domain.Excursion;
 import com.webservices.bykeapi.domain.ExcursionDto;
 import com.webservices.bykeapi.service.ExcursionService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -15,17 +18,17 @@ public class ExcursionController {
     }
 
     @GetMapping("/user/{id}")
-    public Object getExcursionsByUserId(@PathVariable("id") int id) {
+    public List<Excursion> getExcursionsByUserId(@PathVariable("id") int id) {
         return excursionService.getByUserId(id);
     }
 
     @GetMapping("/{id}")
-    public Object getExcursionById(@PathVariable("id") int id) {
+    public Excursion getExcursionById(@PathVariable("id") int id) {
         return excursionService.getById(id);
     }
 
     @PostMapping("")
-    public Object createExcursion(@RequestBody ExcursionDto excursion) {
+    public Excursion createExcursion(@RequestBody ExcursionDto excursion) {
         return excursionService.create(excursion);
     }
 
