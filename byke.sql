@@ -226,10 +226,12 @@ VALUES (1, 1, '2013-11-10'),
 CREATE TABLE step
 (
     id   int(11) NOT NULL AUTO_INCREMENT,
+    creatorId int(11) DEFAULT NULL,
     location  char(25)        DEFAULT NULL,
     latitude   decimal(16, 14) DEFAULT NULL,
     longitude  decimal(16, 14) DEFAULT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (creatorId) REFERENCES user (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 

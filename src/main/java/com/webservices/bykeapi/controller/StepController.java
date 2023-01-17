@@ -1,6 +1,7 @@
 package com.webservices.bykeapi.controller;
 
 import com.webservices.bykeapi.domain.Step;
+import com.webservices.bykeapi.domain.StepDto;
 import com.webservices.bykeapi.service.StepService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,12 @@ public class StepController {
     }
 
     @PostMapping("")
-    public Step createStep(@RequestBody Step step) {
+    public Step createStep(@RequestBody StepDto step) {
         return stepService.create(step);
     }
 
     @PostMapping("/multiple")
-    public List<Integer> createSteps(@RequestBody List<Step> steps) {
+    public List<Integer> createSteps(@RequestBody List<StepDto> steps) {
         return stepService.createAll(steps);
     }
 

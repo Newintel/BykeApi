@@ -1,15 +1,16 @@
 package com.webservices.bykeapi.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "step", schema = "byke")
 public class Step {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -21,6 +22,20 @@ public class Step {
 
     @Column(name = "longitude", precision = 16, scale = 14)
     private BigDecimal longitude;
+
+    @ManyToOne
+    @JoinColumn(name = "creatorId")
+    @JsonIncludeProperties({"id", "username"})
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private User creator;
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 
     public Integer getId() {
         return id;
